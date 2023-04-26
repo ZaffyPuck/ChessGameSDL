@@ -1,6 +1,9 @@
 #ifndef GAME_H_
 #define GAME_H_
 
+#pragma comment(lib, "SDL2.lib")
+#pragma comment(lib, "SDL2main.lib")
+
 #include <string>
 #include <vector>
 #include <map>
@@ -8,10 +11,16 @@
 //#include "ChessPiece.h"
 #include "Option.h"
 
+
 using namespace std;
 
 enum class MoveOutcome {
-	PawnPromote,BlackWin,WhiteWin,InvalidMove,ValidMove,StaleMate
+	PawnPromote,
+	BlackWin,
+	WhiteWin,
+	InvalidMove,
+	ValidMove,
+	StaleMate
 };
 
 class Game {
