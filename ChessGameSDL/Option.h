@@ -1,6 +1,4 @@
 #pragma once
-
-
 #include "ChessPiece.h"
 
 template <typename  T>

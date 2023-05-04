@@ -8,9 +8,8 @@
 #include <vector>
 #include <map>
 #include <regex>
-//#include "ChessPiece.h"
 #include "Option.h"
-
+//#include "ChessPiece.h" // within option.h
 
 using namespace std;
 
@@ -25,13 +24,15 @@ enum class MoveOutcome {
 
 class Game {
 private:
-	vector<vector<Option<ChessPiece>>> board;
-	vector<bool> haveRooksMoved;
+	vector<vector<Option<ChessPiece>>> board; // 8x8 grid of options
 	const unsigned short int boardSize = 8;
 	vector<string> movesHistory;
 	int moveCount = 0;
 	Color turn = Color::White;
-	const map<char, unsigned short int> letterPositions{ {'a',0},{'b',1},{'c',2},{'d',3},{'e',4},{'f',5},{'g',6},{'h',7} };
+	vector<bool> haveRooksMoved;
+	const map<char, unsigned short int> letterPositions{
+		{'a',0},{'b',1},{'c',2},{'d',3},{'e',4},{'f',5},{'g',6},{'h',7} 
+	};
 public:
 	Game();
 

@@ -1,6 +1,4 @@
 #pragma once
-
-#include <SDL.h>
 #include "ChessWindow.h"
 
 ChessWindow::ChessWindow() {
@@ -56,9 +54,7 @@ ChessWindow::ChessWindow() {
             row.push_back(Circle::No);
         }
         circled.push_back(row);
-    }
-
-    
+    }    
 }
 
 bool ChessWindow::isInsideChessBoard(int x, int y) {
@@ -199,45 +195,46 @@ void ChessWindow::showCircles(int i, int j) {
 
 void ChessWindow::draw(SDL_Surface* window_surface) {
 
-    int width = window_surface->w;
-    int height = window_surface->h;
+    int windowWidth = window_surface->w;    // Window Width
+    int windowHeight = window_surface->h;   // Window Height
+    int gridSize = game->getSize();         // for 8x8 grid, size = 8
 
-    startX = width/2;
-    endX = width;
+    startX = 0;
     startY = 0;
-    endY = height;
+    endX = windowWidth;
+    endY = windowHeight;
+    stepX = (endX - startX) / gridSize;
+    stepY = (endY - startY) / gridSize;
 
-    stepX = (endX - startX) / game->getSize();
-    stepY = (endY - startY) / game->getSize();
-
+    // Squarify the step for board
     if (stepX < stepY) {
         stepY = stepX;
     }
     else {
         stepX = stepY;
     }
-
-    //m_image_position.w = (endX - startX) * (endY - startY) / (board_size * board_size);
     m_image_position.w = stepX;
     m_image_position.h = stepY;
-
-    for (int i = 0; i < game->getSize(); i++) {
-        for (int j = 0; j < game->getSize(); j++) {
-            m_image_position.x = startX + stepX * i;
-            m_image_position.y = startY + stepY * j;
-            if (toPromote.at(j).at(i)) {
+    //m_image_position.w = (endX - startX) * (endY - startY) / (board_size * board_size); // looks like it scales the width?
+    
+    // Draw tiles
+    for (int row = 0; row < gridSize; row++) {
+        for (int col = 0; col < gridSize; col++) {
+            m_image_position.x = startX + stepX * row;
+            m_image_position.y = startY + stepY * col;
+            if (toPromote.at(col).at(row)) {
                 SDL_BlitScaled(this->m_white_square, NULL, window_surface, &this->m_image_position);
 
                 ChessPiece piece;
-                if (j < this->game->getSize() / 2) {
+                if (col < this->game->getSize() / 2) {
                     piece.setColor(Color::White);
-                    j++;
+                    col++;
                 }
                 else {
                     piece.setColor(Color::Black);
                 }
 
-                switch (abs((this->game->getSize() / 2) - j)) {
+                switch (abs((this->game->getSize() / 2) - col)) {
                 case 0:
                     piece.setType(promoteOrder.at(0));
                     break;
@@ -253,28 +250,34 @@ void ChessWindow::draw(SDL_Surface* window_surface) {
                 }
 
                 if (piece.getColor() == Color::White) {
-                    j--;
+                    col--;
                 }
 
                 SDL_BlitScaled(pieceImagePaths.at(piece), NULL, window_surface, &this->m_image_position);
 
             }
             else {
-                if ((i + j) % 2 == 0) {
+                if ((row + col) % 2 == 0) {
                     SDL_BlitScaled(this->m_white_square, NULL, window_surface, &this->m_image_position);
                 }
                 else {
                     SDL_BlitScaled(this->m_black_square, NULL, window_surface, &this->m_image_position);
                 }
-                if (circled.at(i).at(j) == Circle::Small) {
+
+                if (circled.at(row).at(col) == Circle::Small) {
                     SDL_BlitScaled(this->m_small_circle, NULL, window_surface, &this->m_image_position);
                 }
-                if (circled.at(i).at(j) == Circle::Big) {
+                if (circled.at(row).at(col) == Circle::Big) {
                     SDL_BlitScaled(this->m_big_circle, NULL, window_surface, &this->m_image_position);
                 }
 
+<<<<<<< Updated upstream
                 if (this->game->getSquare(j, i).isNotEmpty() && !(leftClickPressed && lastSelectedPiece.isNotEmpty() && get<0>(lastSelectedPiece.getData()) == j && get<1>(lastSelectedPiece.getData()) == i)) {
                     ChessPiece piece = this->game->getSquare(j, i).getData();
+=======
+                if (this->game->getSquare(col, row).isNotEmpty()) {
+                    ChessPiece piece = this->game->getSquare(col, row).getData();
+>>>>>>> Stashed changes
 
                     SDL_BlitScaled(pieceImagePaths.at(piece), NULL, window_surface, &this->m_image_position);
                 }
@@ -294,6 +297,7 @@ void ChessWindow::draw(SDL_Surface* window_surface) {
     }
 
     //SDL_BlitSurface(this->m_black_square, NULL, window_surface, &this->m_image_position);
+<<<<<<< Updated upstream
 }
 
 tuple<int, int> ChessWindow::getMousePositionsInsideChessBoard() {
@@ -335,3 +339,6 @@ tuple<int, int> ChessWindow::getMousePositions() {
     }
     return tuple<int, int>{xMouse, yMouse};
 }
+=======
+}
+>>>>>>> Stashed changes

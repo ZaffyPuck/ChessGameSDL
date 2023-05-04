@@ -3,16 +3,29 @@
 
 
 Game::Game() {
-
+	// Set rooks as unmoved
 	for (int i = 0; i < 4; i++) {
 		haveRooksMoved.push_back(false);
 	}
 
-	this->board.push_back({ Option<ChessPiece>(ChessPiece(Color::Black, Type::Rook)),Option<ChessPiece>(ChessPiece(Color::Black, Type::Knight)),Option<ChessPiece>(ChessPiece(Color::Black, Type::Bishop)),Option<ChessPiece>(ChessPiece(Color::Black, Type::Queen)),Option<ChessPiece>(ChessPiece(Color::Black, Type::King)),Option<ChessPiece>(ChessPiece(Color::Black, Type::Bishop)),Option<ChessPiece>(ChessPiece(Color::Black, Type::Knight)),Option<ChessPiece>(ChessPiece(Color::Black, Type::Rook)) });
-	for (int i = 1; i < this->boardSize - 1; i++) {
+	// Add black chess pieces to the board
+	board.push_back(
+		{ 
+			Option<ChessPiece>(ChessPiece(Color::Black, Type::Rook)),
+			Option<ChessPiece>(ChessPiece(Color::Black, Type::Knight)),
+			Option<ChessPiece>(ChessPiece(Color::Black, Type::Bishop)),
+			Option<ChessPiece>(ChessPiece(Color::Black, Type::Queen)),
+			Option<ChessPiece>(ChessPiece(Color::Black, Type::King)),
+			Option<ChessPiece>(ChessPiece(Color::Black, Type::Bishop)),
+			Option<ChessPiece>(ChessPiece(Color::Black, Type::Knight)),
+			Option<ChessPiece>(ChessPiece(Color::Black, Type::Rook)) 
+		});
+
+
+	for (int r = 1; r < this->boardSize - 1; r++) {
 		vector<Option<ChessPiece>> row;
-		for (int j = 0; j < this->boardSize; j++) {
-			switch (i) {
+		for (int c = 0; c < this->boardSize; c++) {
+			switch (r) {
 			case 1:
 				row.push_back(Option<ChessPiece>(ChessPiece(Color::Black, Type::Pawn)));
 				break;
@@ -26,7 +39,17 @@ Game::Game() {
 		}
 		this->board.push_back(row);
 	}
-	this->board.push_back({ Option<ChessPiece>(ChessPiece(Color::White, Type::Rook)),Option<ChessPiece>(ChessPiece(Color::White, Type::Knight)),Option<ChessPiece>(ChessPiece(Color::White, Type::Bishop)),Option<ChessPiece>(ChessPiece(Color::White, Type::Queen)),Option<ChessPiece>(ChessPiece(Color::White, Type::King)),Option<ChessPiece>(ChessPiece(Color::White, Type::Bishop)),Option<ChessPiece>(ChessPiece(Color::White, Type::Knight)),Option<ChessPiece>(ChessPiece(Color::White, Type::Rook)) });
+	this->board.push_back(
+		{ 
+			Option<ChessPiece>(ChessPiece(Color::White, Type::Rook)),
+			Option<ChessPiece>(ChessPiece(Color::White, Type::Knight)),
+			Option<ChessPiece>(ChessPiece(Color::White, Type::Bishop)),
+			Option<ChessPiece>(ChessPiece(Color::White, Type::Queen)),
+			Option<ChessPiece>(ChessPiece(Color::White, Type::King)),
+			Option<ChessPiece>(ChessPiece(Color::White, Type::Bishop)),
+			Option<ChessPiece>(ChessPiece(Color::White, Type::Knight)),
+			Option<ChessPiece>(ChessPiece(Color::White, Type::Rook))
+		});
 }
 
 const tuple<unsigned short int, unsigned short int> Game::getActualPostion(const string position) {
@@ -251,7 +274,6 @@ const vector< tuple<unsigned short int, unsigned short int>> Game::getAllBishopM
 
 	return possible_moves;
 }
-
 
 const vector< tuple<unsigned short int, unsigned short int>> Game::getAllRookMoves(const unsigned short int i, const unsigned short int j) {
 	Color color = this->board.at(i).at(j).getData().getColor();
@@ -627,6 +649,4 @@ const tuple<unsigned short int, unsigned short int> Game::getKingPosition(Color 
 }
 
 
-Game::~Game() {
-
-}
+Game::~Game() {}

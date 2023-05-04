@@ -1,10 +1,12 @@
 #pragma once
-
-#include <SDL.h>
+#include "External.h"
 #include "Game.h"
 
-enum class Circle {
-	No, Small, Big
+enum class Circle 
+{
+	No, 
+	Small,
+	Big
 };
 
 class ChessWindow {

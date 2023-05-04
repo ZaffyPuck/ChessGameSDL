@@ -80,10 +80,10 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)SDL2-2.26.5\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Assets\Libraries\SDL2-TTF-2.20.2\include;$(SolutionDir)Assets\Libraries\SDL2-2.26.5\include;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\Output\</OutDir>
     <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\Intermediate\</IntDir>
-    <LibraryPath>$(SolutionDir)SDL2-2.26.5\libs\$(Platform)\$(Configuration);$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)Assets\Libraries\SDL2-TTF-2.20.2\lib\$(Platform);$(SolutionDir)Assets\Libraries\SDL2-2.26.5\libs\$(Platform)\$(Configuration);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -130,7 +130,8 @@
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y /d  "$(SolutionDir)SDL2-2.26.5\libs\$(Platform)\$(Configuration)\*.dll" "$(OutDir)"</Command>
+      <Command>xcopy /y /d  "$(SolutionDir)Assets\Libraries\SDL2-2.26.5\libs\$(Platform)\$(Configuration)\*.dll" "$(OutDir)"
+xcopy /y /d  "$(SolutionDir)Assets\Libraries\SDL2-TTF-2.20.2\lib\$(Platform)\*.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -161,6 +162,7 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="ChessPiece.h" />
     <ClInclude Include="ChessWindow.h" />
+    <ClInclude Include="External.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Option.h" />
   </ItemGroup>
