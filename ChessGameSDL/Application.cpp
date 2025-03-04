@@ -61,31 +61,32 @@ Application::Application() : m_window_event()
     textureImg = SDL_CreateTextureFromSurface(renderer, loadedImage);
     SDL_FreeSurface(loadedImage); // Free the surface
 
-    //chessWindow = new ChessWindow();
+    chessWindow = new ChessWindow();
 }
 
 Application::~Application()
 {
     SDL_DestroyTexture(textureText); // Destroy texture text
     SDL_FreeSurface(m_window_surface);
+    //delete m_window_surface;
+    m_window_surface = nullptr;
     SDL_DestroyWindow(m_window); // Destroy window
+    //delete m_window;
+    m_window = nullptr;
     TTF_CloseFont(textFont); // Close font subsystem
     TTF_Quit();
     SDL_Quit();
 
-    delete m_window;
-    m_window = nullptr;
-    delete m_window_surface;
-    m_window_surface = nullptr;
+
     //delete chessWindow;
-    //chessWindow = nullptr;
-    delete windowName;
+    chessWindow = nullptr;
+    //delete windowName;
     windowName = nullptr;
-    delete textFont;
+    //delete textFont;
     textFont = nullptr;
-    delete textureText;
+    //delete textureText;
     textureText = nullptr;
-    delete renderer;
+    //delete renderer;
     renderer = nullptr;
 }
 void Application::mousePress(SDL_MouseButtonEvent& b) {
@@ -136,35 +137,17 @@ void Application::loop()
         draw();
     }
 }
-<<<<<<< Updated upstream
 
-void Application::mousePress(SDL_MouseButtonEvent& b) {
-    if (b.button == SDL_BUTTON_LEFT) {
-        int x = b.x;
-        int y = b.y;
-        if (chessWindow->isInsideChessBoard(x, y)) {
-            chessWindow->onLeftClick(this->m_window_surface, x, y);
-        }
-    }
-    if (b.button)
-    if (b.button == SDL_BUTTON_RIGHT) {
-        int x = b.x;
-        int y = b.y;
-    }
-}
-
-=======
->>>>>>> Stashed changes
 void Application::draw()
 {
     SDL_UpdateWindowSurface(m_window);
     SDL_FillRect(m_window_surface, NULL, SDL_MapRGB(m_window_surface->format, 0, 0, 0));
-    //chessWindow->draw(m_window_surface);
+    chessWindow->draw(m_window_surface);
 
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_TRANSPARENT); // Clear and Draw the Screen
-    SDL_RenderClear(renderer);
-    SDL_RenderCopy(renderer, textureImg, nullptr, nullptr);
-    SDL_RenderCopy(renderer, textureText, nullptr, &rectangle); // Render our text on a rectangle
-    SDL_RenderPresent(renderer); // Finally show what we've drawn
+    //SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_TRANSPARENT); // Clear and Draw the Screen
+    //SDL_RenderClear(renderer);
+    //SDL_RenderCopy(renderer, textureImg, nullptr, nullptr);
+    //SDL_RenderCopy(renderer, textureText, nullptr, &rectangle); // Render our text on a rectangle
+    //SDL_RenderPresent(renderer); // Finally show what we've drawn
 
 }
